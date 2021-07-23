@@ -1,7 +1,5 @@
 # main menu
-import sys
-from section_menus import products_menu, courier_menu, orders_menu
-from mini_project_week1 import save_and_exit
+from section_menus import products_menu, courier_menu, orders_menu, save_everything
 
 def main_menu():
     print("Main Menu")
@@ -21,25 +19,31 @@ Please make a selection A, B, C or D:
   Press 2 to add new product
   Press 3 to update existing product
   Press 4 to delete product
-  """)
+    """)
         products_menu()
-        save_and_exit()
-    elif main_selection == "C" or "c":
+    if main_selection == "C" or main_selection == "c":
         print("""
   Press 0 to return to main menu
   Press 1 to view courier list
   Press 2 to add new courier
   Press 3 to update existing courier
   Press 4 to delete courier
-  """)
+    """)
         courier_menu()
-        save_and_exit()
-    elif main_selection == "D" or "d":
+    if main_selection == "D" or main_selection == "d":
+        print("""
+  Press 0 to return to main menu
+  Press 1 to view orders
+  Press 2 to add order
+  Press 3 to update order
+  Press 4 to delete order
+    """)
         orders_menu()
-    elif main_selection == "E" or "e":
-        save_and_exit()
+    if main_selection == "E" or main_selection == "e":
+        save_everything()
         print("Bye!")
-    elif main_selection == "A" or "a":
+    if main_selection == "A" or main_selection == "a":
+        save_everything()
         print("Back to Home")
         main_menu()
 
