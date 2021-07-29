@@ -75,7 +75,7 @@ def view_products():
         print(f"{x[0]}. {x[1]}")
         
 def view_couriers():
-    mycursor.execute("SELECT id, name FROM couuriers")
+    mycursor.execute("SELECT id, name FROM couriers")
     myresult = mycursor.fetchall()
     print("Couriers:")
     for x in myresult:
@@ -189,5 +189,3 @@ def product_export_csv():
         writer = csv.writer(csvfile)
         writer.writerow([ i[0] for i in mycursor.description ]) 
             
-view_couriers()
-view_products()
