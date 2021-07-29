@@ -1,6 +1,7 @@
 from mini_project_week5 import view_couriers
 import csv
 import mysql.connector
+import json
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -29,6 +30,8 @@ with open("order_list.csv", "r") as f:
     a = list(reader)
     
 order_list= a
+
+# print(json.dumps(order_list, sort_keys=False, indent=4))
 
 def add_order():
     customer_name = input("Enter customer name")

@@ -1,5 +1,7 @@
 import csv
 import mysql.connector
+import pandas
+
 # mydb = mysql.connector.connect(
 #   host="localhost",
 #   user="root",
@@ -183,9 +185,21 @@ Enter 3 to update both
     print("Product updated")
     
 def product_export_csv():
-    SQLview = 'SELECT * FROM products;'
-    mycursor.execute(SQLview)
-    with open('products.csv', 'w') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow([ i[0] for i in mycursor.description ]) 
+    sql = 'select * from products'
+    mycursor.execute(sql.encode('utf-8'))
+    data = mycursor.fetchall()
+    filename = 'products.csv'
+    with open(filename,mode='w',encoding='utf-8') as f:
+        write = csv.writer(f,dialect='excel')
+        for item in data:
+            write.writerow(item)
             
+def courier_export_csv():
+    sql = 'select * from couriers'
+    mycursor.execute(sql.encode('utf-8'))
+    data = mycursor.fetchall()
+    filename = 'couriers.csv'
+    with open(filename,mode='w',encoding='utf-8') as f:
+        write = csv.writer(f,dialect='excel')
+        for item in data:
+            write.writerow(item)

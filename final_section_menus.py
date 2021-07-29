@@ -1,5 +1,6 @@
 from mini_project_week5 import add_courier_db, add_product_db, update_product_db, update_courier_db, delete_courier_db, delete_product_db, view_couriers, view_products
 from mini_project_week3 import delete_order, order_list, update_order, add_order, order_save_and_exit
+import json
 
 def courier_menu():
     menu_input = int(input("What would you like to do?"))
@@ -32,7 +33,8 @@ def orders_menu():
     if menu_input ==0:
         print("go back")
     elif menu_input == 1:
-        print(order_list)
+        for i in range(len(order_list)):
+            print(f"{i+1}. {order_list[i]}")
     elif menu_input == 2:
         add_order()
         order_save_and_exit()
