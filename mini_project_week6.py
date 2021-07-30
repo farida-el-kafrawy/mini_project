@@ -153,7 +153,7 @@ def check_order_status():
     myresult = mycursor.fetchall()
     print("Orders:")
     for x in myresult:
-        print(f"{x[0]}. {x[1]}, {x[2]}, {x[3]}, {x[4]}, {x[5]}, {x[6]} ")
+        print(f"{x[0]}. {x[1]} ORDER STATUS: {x[5]}")
         
 
 def check_courier():
@@ -161,5 +161,5 @@ def check_courier():
     myresult = mycursor.fetchall()
     print("Orders:")
     for x in myresult:
-        print(f"{x[0]}. {x[1]}, {x[2]}, {x[3]}, COURIER: {x[4]}, {x[5]}, {x[6]} ")
+        print(f"{x[0]}. {x[1]} COURIER: {x[4]}")
         

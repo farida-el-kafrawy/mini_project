@@ -53,6 +53,8 @@ Press 2 for No"""))
   Press 2 to add order
   Press 3 to update order
   Press 4 to delete order
+  Press 5 to check which courier is delivering an order
+  Press 6 to track order status
     """)
         orders_menu()
         print("Would you like to go back to the main menu?")
