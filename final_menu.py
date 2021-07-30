@@ -1,7 +1,7 @@
 # main menu
 from final_section_menus import products_menu, courier_menu, orders_menu
 from mini_project_week5 import courier_export_csv, product_export_csv
-from mini_project_week3 import order_save_and_exit
+from mini_project_week6 import orders_export_csv
 
 def main_menu():
     print("Main Menu")
@@ -53,6 +53,7 @@ Press 2 for No"""))
   Press 2 to add order
   Press 3 to update order
   Press 4 to delete order
+  Press 5 to check order status
     """)
         orders_menu()
         print("Would you like to go back to the main menu?")
@@ -63,11 +64,11 @@ Press 2 for No"""))
             main_menu()
         else: print("Bye, see you soon!")
     if main_selection == "E" or main_selection == "e":
-        export = int(input("Would you like to export products and couriers as CSV, write 1 for yes or 2 for no"))
+        export = int(input("Would you like to export orders, products and couriers as CSV, write 1 for yes or 2 for no"))
         if export == 1:
-            order_save_and_exit()
             product_export_csv()
             courier_export_csv()
+            orders_export_csv()
         print("Bye!")
     if main_selection == "A" or main_selection == "a":
         print("Back to Home")
