@@ -13,7 +13,7 @@ import pandas
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Noorsis4",
+  password="password",
   database="mini_project"
 )
 mycursor = mydb.cursor()
