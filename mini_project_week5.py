@@ -9,7 +9,6 @@ import pandas
 # )
 # mycursor = mydb.cursor()
 # mycursor.execute("CREATE DATABASE mini_project")
-
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",

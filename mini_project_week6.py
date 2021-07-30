@@ -155,7 +155,6 @@ def check_order_status():
     for x in myresult:
         print(f"{x[0]}. {x[1]}, {x[2]}, {x[3]}, {x[4]}, {x[5]}, {x[6]} ")
         
-
 def check_courier():
     mycursor.execute("SELECT * FROM orders ORDER BY courier")
     myresult = mycursor.fetchall()

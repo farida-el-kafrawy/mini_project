@@ -27,7 +27,7 @@ def products_menu():
         update_product_db()
     elif menu_input == 4:
         delete_product_db()
-
+        
 def orders_menu():
     menu_input = int(input("What would you like to do?"))
     if menu_input ==0:
