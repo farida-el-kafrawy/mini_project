@@ -91,11 +91,6 @@ Press 2 for No"""))
     if main_selection == "A" or main_selection == "a":
         rich.print("[#228B22] Back to Home [/]")
         main_menu()
-    elif main_selection != ('A' or 'a') and main_selection != ('B' or 'b') and main_selection != ('C' or 'c') and main_selection != ('D' or 'd') and main_selection != ('E' or 'e'): 
-        rich.print("""[#808080]Ooops! 
-That isn't a valid option.
-Please try again [/]""")
-        main_menu()
 
 # back_or_no = input("Would you like to go back to the main menu? Yes or No?")
 #         if back_or_no == "yes" or "Yes":
