@@ -1,8 +1,10 @@
 from mini_project_week5 import view_couriers, view_products
 import csv
 import mysql.connector
-import json
 from datetime import date
+from rich.console import Console
+
+rich = Console()
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -53,97 +55,103 @@ def view_orders():
 
 def update_order():
     view_orders()
-    update_choice = int(input("Which order do you want to update? Choose number"))
-    update_property = int(input("""
-What do you want to update?
-1. Customer Name
-2. Customer Address
-3. Customer Phone Number
-4. Courier
-5. Order status
-    """))
-    if update_property == 1:
-        update_name = input("Enter new name")
-        if update_name == '':
-            print("Try again")
-            update_order()
-        else:
-            sql = '''UPDATE orders
-            SET name = %s
-            WHERE id =  %s;'''
-            val = (update_name, update_choice)
-            mycursor.execute(sql, val)
-            mydb.commit()
-    elif update_property ==2:
-        update_address= input("Enter new address")
-        if update_address == '':
-            print("Try again")
-            update_order()
-        else:
-            sql = '''UPDATE orders
-            SET address = %s
-            WHERE id =  %s;'''
-            val = (update_address, update_choice)
-            mycursor.execute(sql, val)
-            mydb.commit()
-    elif update_property ==3:
-        update_phone = input("Enter new phone number")
-        if update_property == '':
-            print("Try again")
-            update_order()
-        else:
-            sql = '''UPDATE orders
-            SET phone = %s
-            WHERE id =  %s;'''
-            val = (update_phone, update_choice)
-            mycursor.execute(sql, val)
-            mydb.commit()
-    elif update_property ==4:
-        view_couriers()
-        update_courier= input("Which courier is delivering this order. Select number please.")
-        if update_courier == '':
-            print("Try again")
-            update_order()
-        else:
-            sql = '''UPDATE orders
-            SET address = %s
-            WHERE id =  %s;'''
-            val = (update_courier, update_choice)
-            mycursor.execute(sql, val)
-            mydb.commit()
-    elif update_property ==5:
-        update_status = int(input("""
-Enter new status
-1. Preparing
-2. With courier
-3. Delivered
-    """))
-        if update_status ==3:
-            sql = '''UPDATE orders
-            SET status = 'Delivered'
-            WHERE id =  %s;'''
-            val = (update_choice,)
-            mycursor.execute(sql, val)
-            mydb.commit()
-        elif update_status ==2:
-            sql = '''UPDATE orders
-            SET status = 'With courier'
-            WHERE id =  %s;'''
-            val = (update_choice,)
-            mycursor.execute(sql, val)
-            mydb.commit()
-        elif update_status ==1:
-            sql = '''UPDATE orders
-            SET status = 'Preparing'
-            WHERE id =  %s;'''
-            val = (update_choice,)
-            mycursor.execute(sql, val)
-            mydb.commit()
-        print("Order delivery status updated")
-    else:
-        print("Please try again")
-        update_order()
-    
+    while True:
+            try:
+                update_choice = int(input("Which order do you want to update? Choose number"))
+                update_property = int(input("""
+            What do you want to update?
+            1. Customer Name
+            2. Customer Address
+            3. Customer Phone Number
+            4. Courier
+            5. Order status
+                """))
+                if update_property == 1:
+                    update_name = input("Enter new name")
+                    if update_name == '':
+                        print("Try again")
+                        update_order()
+                    else:
+                        sql = '''UPDATE orders
+                        SET name = %s
+                        WHERE id =  %s;'''
+                        val = (update_name, update_choice)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                elif update_property ==2:
+                    update_address= input("Enter new address")
+                    if update_address == '':
+                        print("Try again")
+                        update_order()
+                    else:
+                        sql = '''UPDATE orders
+                        SET address = %s
+                        WHERE id =  %s;'''
+                        val = (update_address, update_choice)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                elif update_property ==3:
+                    update_phone = input("Enter new phone number")
+                    if update_property == '':
+                        print("Try again")
+                        update_order()
+                    else:
+                        sql = '''UPDATE orders
+                        SET phone = %s
+                        WHERE id =  %s;'''
+                        val = (update_phone, update_choice)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                elif update_property ==4:
+                    view_couriers()
+                    update_courier= input("Which courier is delivering this order. Select number please.")
+                    if update_courier == '':
+                        print("Try again")
+                        update_order()
+                    else:
+                        sql = '''UPDATE orders
+                        SET address = %s
+                        WHERE id =  %s;'''
+                        val = (update_courier, update_choice)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                elif update_property ==5:
+                    update_status = int(input("""
+            Enter new status
+            1. Preparing
+            2. With courier
+            3. Delivered
+                """))
+                    if update_status ==3:
+                        sql = '''UPDATE orders
+                        SET status = 'Delivered'
+                        WHERE id =  %s;'''
+                        val = (update_choice,)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                    elif update_status ==2:
+                        sql = '''UPDATE orders
+                        SET status = 'With courier'
+                        WHERE id =  %s;'''
+                        val = (update_choice,)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                    elif update_status ==1:
+                        sql = '''UPDATE orders
+                        SET status = 'Preparing'
+                        WHERE id =  %s;'''
+                        val = (update_choice,)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
+                    print("Order delivery status updated")
+                else:
+                    rich.print("""[#808080]Invalid input.
+Try again.[/]""")
+                    update_order()
+            except ValueError:
+                rich.print("""[#808080]Invalid input.
+Try again.[/]""")
+                update_order()
 
 def delete_order():
     view_orders()

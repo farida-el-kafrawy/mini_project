@@ -1,6 +1,8 @@
 import csv
 import mysql.connector
-import pandas
+from rich.console import Console
+
+rich = Console()
 
 # mydb = mysql.connector.connect(
 #   host="localhost",
@@ -50,24 +52,38 @@ def first_couriers():
 def add_product_db():
     product_name = input("Enter product name")
     product_price = input("Enter product price")
-    sql = "INSERT INTO products (name,price) VALUES (%s, %s)"
-    val = [
-(product_name, product_price),
-]
-    mycursor.executemany(sql, val)
-    mydb.commit()
-    print(f"{product_name} added")
-    
+    if product_name == '' or product_price == '':
+        rich.print("""
+[#808080]Invalid input.
+Try again.[/]
+""")
+        add_product_db()
+    else:
+        sql = "INSERT INTO products (name,price) VALUES (%s, %s)"
+        val = [
+    (product_name, product_price),
+    ]
+        mycursor.executemany(sql, val)
+        mydb.commit()
+        print(f"{product_name} added")
+
 def add_courier_db():
     courier_name = input("Enter courier name")
     courier_phone = input("Enter courier phone number")
-    sql = "INSERT INTO couriers (name,phone) VALUES (%s, %s)"
-    val = [
-(courier_name, courier_phone),
-]
-    mycursor.executemany(sql, val)
-    mydb.commit()
-    print(f"{courier_name} added")
+    if courier_name == '' or courier_phone == '':
+        rich.print("""
+[#808080]Invalid input.
+Try again.[/]
+""")
+        add_courier_db()
+    else:
+        sql = "INSERT INTO couriers (name,phone) VALUES (%s, %s)"
+        val = [
+    (courier_name, courier_phone),
+    ]
+        mycursor.executemany(sql, val)
+        mydb.commit()
+        print(f"{courier_name} added")
 
 def view_products():
     mycursor.execute("SELECT id, name FROM products")
@@ -85,21 +101,37 @@ def view_couriers():
         
 def delete_product_db():
     view_products()
-    product_name = int(input("Enter product number to delete"))
-    sql = "DELETE FROM products WHERE id = %s"
-    val = (product_name, )
-    mycursor.execute(sql, val)
-    mydb.commit()
-    print(f"Product with id {product_name} removed from list")
+    while True:
+        try:
+            product_name = int(input("Enter product number to delete"))
+            sql = "DELETE FROM products WHERE EXISTS id = %s"
+            val = (product_name, )
+            mycursor.execute(sql, val)
+            mydb.commit()
+            print(f"Product with id {product_name} removed from list")
+        except:
+            rich.print("""
+[#808080]Invalid input.
+Try again.[/]
+""")
+            delete_product_db()
 
 def delete_courier_db():
     view_couriers()
-    courier_name = int(input("Enter courier number to delete"))
-    sql = "DELETE FROM couriers WHERE id = %s"
-    val = (courier_name, )
-    mycursor.execute(sql, val)
-    mydb.commit()
-    print(f"Courier with id {courier_name} removed from list")
+    while True:
+        try: 
+            courier_name = int(input("Enter courier number to delete"))
+            sql = "DELETE FROM couriers WHERE EXISTS id = %s"
+            val = (courier_name, )
+            mycursor.execute(sql, val)
+            mydb.commit()
+            print(f"Courier with id {courier_name} removed from list")
+        except:
+            rich.print("""
+[#808080]Invalid input.
+Try again.[/]
+""")
+            delete_courier_db()
 
 def update_courier_db():
     view_couriers()
@@ -122,6 +154,7 @@ Enter 3 to update both
             val = (user_new_name, user_index_selection)
             mycursor.execute(sql, val)
             mydb.commit()
+            print("Courier updated")
     elif name_or_phone == 2:
         user_new_phone = input("What is the new phone number?")
         if user_new_phone == '':
@@ -134,6 +167,7 @@ Enter 3 to update both
             val = (user_new_phone, user_index_selection)
             mycursor.execute(sql, val)
             mydb.commit()
+            print("Courier updated")
     elif name_or_phone ==3:
         user_new_name = input("What is the new name?")
         if user_new_name == '':
@@ -146,6 +180,7 @@ Enter 3 to update both
             val1 = (user_new_name, user_index_selection)
             mycursor.execute(sql1, val1)
             mydb.commit()
+            print("Courier updated")
         user_new_phone = input("What is the new phone number?")
         if user_new_phone == '':
             print("Try again")
@@ -157,17 +192,21 @@ Enter 3 to update both
             val2 = (user_new_phone, user_index_selection)
             mycursor.execute(sql2, val2)
             mydb.commit()
-    print("Courier updated")
-    
+            print("Courier updated")
+    else:
+        rich.print("""[#808080]Invalid input.
+Try again.[/]""")
+        update_courier_db()
+
 
 def update_product_db():
     view_products()
     user_index_selection = int(input("""Which item do you wish to update? 
-Enter number."""))
+    Enter number."""))
     name_or_price = int(input("""
-Enter 1 to update name
-Enter 2 to update price
-Enter 3 to update both
+    Enter 1 to update name
+    Enter 2 to update price
+    Enter 3 to update both
                     """))
     if name_or_price == 1:
         user_new_name = input("What is the new name?")
@@ -177,6 +216,7 @@ Enter 3 to update both
         val = (user_new_name, user_index_selection)
         mycursor.execute(sql, val)
         mydb.commit()
+        print("Product updated")
     elif name_or_price == 2:
         user_new_price = input("What is the new price?")
         sql = '''UPDATE products
@@ -185,6 +225,7 @@ Enter 3 to update both
         val = (user_new_price, user_index_selection)
         mycursor.execute(sql, val)
         mydb.commit()
+        print("Product updated")
     elif name_or_price ==3:
         user_new_name = input("What is the new name?")
         sql1 = '''UPDATE products
@@ -199,8 +240,12 @@ Enter 3 to update both
         val2 = (user_new_phone, user_index_selection)
         mycursor.execute(sql2, val2)
         mydb.commit()
-    print("Product updated")
-    
+        print("Product updated")
+    else:
+        rich.print("""[#808080]Invalid input.
+Try again.[/]""")
+        update_product_db()
+
 def product_export_csv():
     sql = 'select * from products'
     mycursor.execute(sql.encode('utf-8'))
