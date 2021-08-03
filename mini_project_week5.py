@@ -8,12 +8,13 @@ import pandas
 #   password="password"
 # )
 # mycursor = mydb.cursor()
-# mycursor.execute("CREATE DATABASE mini_project")
+# mycursor.execute("CREATE DATABASE miniproject")
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="password",
-  database="mini_project"
+  database="miniproject"
 )
 mycursor = mydb.cursor()
 
@@ -71,14 +72,14 @@ def add_courier_db():
 def view_products():
     mycursor.execute("SELECT id, name FROM products")
     myresult = mycursor.fetchall()
-    print("Products:")
+    print("ID. Product Name:")
     for x in myresult:
         print(f"{x[0]}. {x[1]}")
         
 def view_couriers():
     mycursor.execute("SELECT id, name FROM couriers")
     myresult = mycursor.fetchall()
-    print("Couriers:")
+    print("ID. Courier Name:")
     for x in myresult:
         print(f"{x[0]}. {x[1]}")
         
@@ -111,34 +112,51 @@ Enter 3 to update both
                     """))
     if name_or_phone == 1:
         user_new_name = input("What is the new name?")
-        sql = '''UPDATE couriers
-        SET name = %s
-        WHERE id =  %s;'''
-        val = (user_new_name, user_index_selection)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if user_new_name == '':
+            print("Try again")
+            update_courier_db()
+        else:
+            sql = '''UPDATE couriers
+            SET name = %s
+            WHERE id =  %s;'''
+            val = (user_new_name, user_index_selection)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif name_or_phone == 2:
         user_new_phone = input("What is the new phone number?")
-        sql = '''UPDATE couriers
-        SET phone = %s
-        WHERE id =  %s;'''
-        val = (user_new_phone, user_index_selection)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if user_new_phone == '':
+            print("Try again")
+            update_courier_db()
+        else:
+            sql = '''UPDATE couriers
+            SET phone = %s
+            WHERE id =  %s;'''
+            val = (user_new_phone, user_index_selection)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif name_or_phone ==3:
         user_new_name = input("What is the new name?")
-        sql1 = '''UPDATE couriers
-        SET name = %s
-        WHERE id =  %s;'''
-        val1 = (user_new_name, user_index_selection)
-        mycursor.execute(sql1, val1)
+        if user_new_name == '':
+            print("Try again")
+            update_courier_db()
+        else:
+            sql1 = '''UPDATE couriers
+            SET name = %s
+            WHERE id =  %s;'''
+            val1 = (user_new_name, user_index_selection)
+            mycursor.execute(sql1, val1)
+            mydb.commit()
         user_new_phone = input("What is the new phone number?")
-        sql2 = '''UPDATE couriers
-        SET phone = %s
-        WHERE id =  %s;'''
-        val2 = (user_new_phone, user_index_selection)
-        mycursor.execute(sql2, val2)
-        mydb.commit()
+        if user_new_phone == '':
+            print("Try again")
+            update_courier_db()
+        else:
+            sql2 = '''UPDATE couriers
+            SET phone = %s
+            WHERE id =  %s;'''
+            val2 = (user_new_phone, user_index_selection)
+            mycursor.execute(sql2, val2)
+            mydb.commit()
     print("Courier updated")
     
 

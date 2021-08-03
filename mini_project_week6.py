@@ -8,7 +8,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="password",
-  database="mini_project"
+  database="miniproject"
 )
 mycursor = mydb.cursor()
 
@@ -64,37 +64,53 @@ What do you want to update?
     """))
     if update_property == 1:
         update_name = input("Enter new name")
-        sql = '''UPDATE orders
-        SET name = %s
-        WHERE id =  %s;'''
-        val = (update_name, update_choice)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if update_name == '':
+            print("Try again")
+            update_order()
+        else:
+            sql = '''UPDATE orders
+            SET name = %s
+            WHERE id =  %s;'''
+            val = (update_name, update_choice)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif update_property ==2:
         update_address= input("Enter new address")
-        sql = '''UPDATE orders
-        SET address = %s
-        WHERE id =  %s;'''
-        val = (update_address, update_choice)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if update_address == '':
+            print("Try again")
+            update_order()
+        else:
+            sql = '''UPDATE orders
+            SET address = %s
+            WHERE id =  %s;'''
+            val = (update_address, update_choice)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif update_property ==3:
         update_phone = input("Enter new phone number")
-        sql = '''UPDATE orders
-        SET phone = %s
-        WHERE id =  %s;'''
-        val = (update_phone, update_choice)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if update_property == '':
+            print("Try again")
+            update_order()
+        else:
+            sql = '''UPDATE orders
+            SET phone = %s
+            WHERE id =  %s;'''
+            val = (update_phone, update_choice)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif update_property ==4:
         view_couriers()
         update_courier= input("Which courier is delivering this order. Select number please.")
-        sql = '''UPDATE orders
-        SET address = %s
-        WHERE id =  %s;'''
-        val = (update_courier, update_choice)
-        mycursor.execute(sql, val)
-        mydb.commit()
+        if update_courier == '':
+            print("Try again")
+            update_order()
+        else:
+            sql = '''UPDATE orders
+            SET address = %s
+            WHERE id =  %s;'''
+            val = (update_courier, update_choice)
+            mycursor.execute(sql, val)
+            mydb.commit()
     elif update_property ==5:
         update_status = int(input("""
 Enter new status
@@ -124,6 +140,9 @@ Enter new status
             mycursor.execute(sql, val)
             mydb.commit()
         print("Order delivery status updated")
+    else:
+        print("Please try again")
+        update_order()
     
 
 def delete_order():

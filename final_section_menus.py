@@ -14,6 +14,9 @@ def courier_menu():
         update_courier_db()
     elif menu_input == 4:
         delete_courier_db()
+    else: 
+        print("Try again")
+        courier_menu()
         
 def products_menu():
     menu_input = int(input("What would you like to do?"))
@@ -27,6 +30,9 @@ def products_menu():
         update_product_db()
     elif menu_input == 4:
         delete_product_db()
+    else: 
+        print("Try again")
+        courier_menu()
         
 def orders_menu():
     menu_input = int(input("What would you like to do?"))
@@ -44,3 +50,6 @@ def orders_menu():
         check_order_status()
     elif menu_input == 6:
         check_courier()
+    else: 
+        print("Try again")
+        courier_menu()
