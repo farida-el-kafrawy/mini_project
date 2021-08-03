@@ -180,7 +180,6 @@ Enter 3 to update both
             val1 = (user_new_name, user_index_selection)
             mycursor.execute(sql1, val1)
             mydb.commit()
-            print("Courier updated")
         user_new_phone = input("What is the new phone number?")
         if user_new_phone == '':
             print("Try again")
