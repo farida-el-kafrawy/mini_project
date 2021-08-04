@@ -156,6 +156,7 @@ def orders_menu():
   Press 3 to update order
   Press 4 to delete order
   Press 5 to check order status
+  Press 6 to check which courier has an order
 [/] """)
     while True:
         try: 
