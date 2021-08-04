@@ -206,6 +206,7 @@ def save_and_exit():
 ─▐█▀▀▄ ──█── █▀▀──▀
 ─▐█▄▄▀ ──▀── ▀▀▀──▄
 """)
+                exit()
             elif export == 2: 
                 print("""
  ▐█▀▄─ ▀▄─▄▀ █▀▀──█
@@ -221,4 +222,4 @@ Try again. [/]""")
             rich.print("""[#808080]Option was not found. 
 Try again. [/]""")
 
-main_menu()
+save_and_exit()

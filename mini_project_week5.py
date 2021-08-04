@@ -101,37 +101,21 @@ def view_couriers():
         
 def delete_product_db():
     view_products()
-    while True:
-        try:
-            product_name = int(input("Enter product number to delete"))
-            sql = "DELETE FROM products WHERE EXISTS id = %s"
-            val = (product_name, )
-            mycursor.execute(sql, val)
-            mydb.commit()
-            print(f"Product with id {product_name} removed from list")
-        except:
-            rich.print("""
-[#808080]Invalid input.
-Try again.[/]
-""")
-            delete_product_db()
+    product_name = int(input("Enter product number to delete"))
+    sql = "DELETE FROM products WHERE id = %s"
+    val = (product_name, )
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(f"Product with id {product_name} removed from list")
 
 def delete_courier_db():
     view_couriers()
-    while True:
-        try: 
-            courier_name = int(input("Enter courier number to delete"))
-            sql = "DELETE FROM couriers WHERE EXISTS id = %s"
-            val = (courier_name, )
-            mycursor.execute(sql, val)
-            mydb.commit()
-            print(f"Courier with id {courier_name} removed from list")
-        except:
-            rich.print("""
-[#808080]Invalid input.
-Try again.[/]
-""")
-            delete_courier_db()
+    courier_name = int(input("Enter courier number to delete"))
+    sql = "DELETE FROM couriers WHERE id = %s"
+    val = (courier_name, )
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(f"Courier with id {courier_name} removed from list")
 
 def update_courier_db():
     view_couriers()
